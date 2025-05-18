@@ -1,8 +1,6 @@
 import json
 from concurrent import futures
-from datetime import datetime
 
-import requests
 from django.shortcuts import redirect
 from django.urls import re_path
 
