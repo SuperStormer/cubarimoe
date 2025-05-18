@@ -6,8 +6,13 @@
 <meta name="description" content="Read {{ series }}{% if author %} by {{ author }}{% endif %} on Cubari, the manga image proxy." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Read {{ series }} | {{ brand.name }}" />
-<meta name="twitter:image" content="{{ brand.image_url }}" />
-<meta property="og:image" content="{{ brand.image_url }}" />
+{% if cover_vol_url %}
+<meta property="og:image" content="{{ cover_vol_url }}">
+<meta name="twitter:image" content="{{ cover_vol_url }}">
+{% else %}
+<meta property="og:image" content="{{ brand.image_url }}">
+<meta name="twitter:image" content="{{ brand.image_url }}">
+{% endif %}
 <meta name="author" content="{{ author }}" />
 {% endblock %}
 

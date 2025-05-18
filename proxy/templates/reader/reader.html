@@ -20,8 +20,13 @@
   {% else %}
   <meta property="og:description" content="Read the {{ series_name }} manga series.">
   <meta name="twitter:description" content="Read the {{ series_name }} manga series.">
-  <meta property="og:image" content="{{ cover }}">
-  <meta name="twitter:image" content="{{ cover }}">
+  {% if cover %}
+  <meta property="og:image" content="{{ cover }}" />
+  <meta name="twitter:image" content="{{ cover }}" />
+  {% else %}
+  <meta property="og:image" content="{{ brand.image_url }}" />
+  <meta name="twitter:image" content="{{ brand.image_url }}" />
+  {% endif %}
   {% endif %}
   <meta property="og:url" content="{{ absolute_url }}">
   <meta name="viewport" content="width=device-width">
