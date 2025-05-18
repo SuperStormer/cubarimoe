@@ -1,6 +1,6 @@
 import json
-import re
 import random
+import re
 from datetime import datetime
 
 from django.conf import settings
@@ -259,7 +259,7 @@ class Imgur(ProxySource):
                 alt_titles_str=None,
                 slug=data["slug"],
                 cover_vol_url=data["cover"],
-                metadata=[],
+                metadata=[["Author", data["author"]]],
                 synopsis=data["description"],
                 author=data["author"],
                 chapter_list=data["chapter_list"],

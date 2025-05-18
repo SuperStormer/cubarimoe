@@ -21,6 +21,13 @@ SENSOR_TIMEOUT_MAX_FAILURES = (
     25  # 25 requests within 5 minutes time out? Drop the proxy.
 )
 
+def join_list(l):
+    l = list(l)
+    if not l:
+        return ""
+    if len(l) == 1:
+        return l[0]
+    return ", ".join(l[:-1]) + " and " + l[-1]
 
 def naive_encode(url):
     return url.replace("/", ENCODE_STR_SLASH).replace("?", ENCODE_STR_QUESTION)

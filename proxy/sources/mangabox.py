@@ -207,9 +207,9 @@ class MangaBox(ProxySource):
                 alt_titles_str=None,
                 slug=data["slug"],
                 cover_vol_url=data["cover"],
-                metadata=[],
+                metadata=[["Author", data["author"]]],
                 synopsis=data["description"],
-                author=data["artist"],
+                author=data["author"],
                 chapter_list=data["chapter_list"],
                 original_url=original_url,
             )

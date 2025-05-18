@@ -10,7 +10,7 @@ from django.urls import re_path
 
 from ..source import ProxySource
 from ..source.data import ChapterAPI, ProxyException, SeriesAPI, SeriesPage
-from ..source.helpers import api_cache, decode, encode, get_wrapper
+from ..source.helpers import api_cache, decode, encode, get_wrapper, join_list
 
 #Should work with all image servers
 class MangaKatana(ProxySource):
@@ -69,7 +69,7 @@ class MangaKatana(ProxySource):
             except AttributeError:
                 return None
             try:
-                author = soup.find_all("a", class_="author")[0].text
+                author = join_list(el.text for el in soup.find_all("a", class_="author"))
             except AttributeError:
                 author = "None"
             try:
@@ -185,9 +185,9 @@ class MangaKatana(ProxySource):
                 alt_titles_str=None,
                 slug=data["slug"],
                 cover_vol_url=data["cover"],
-                metadata=[],
+                metadata=[["Author", data["author"]]],
                 synopsis=data["description"],
-                author=data["artist"],
+                author=data["author"],
                 chapter_list=data["chapter_list"],
                 original_url=original_url,
             )

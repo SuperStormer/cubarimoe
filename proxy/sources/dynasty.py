@@ -7,7 +7,8 @@ from django.urls import re_path
 
 from ..source import ProxySource
 from ..source.data import ChapterAPI, SeriesAPI, SeriesPage
-from ..source.helpers import api_cache, get_wrapper
+from ..source.helpers import api_cache, get_wrapper, join_list
+
 
 class Dynasty(ProxySource):
     def get_reader_prefix(self):
@@ -120,7 +121,7 @@ class Dynasty(ProxySource):
             for tagging in data["taggings"]:
                 if "tags" in tagging:
                     groups = [tag["name"] for tag in tagging["tags"] if tag["type"] == "Scanlator"]
-                    group = ", ".join(groups)
+                    group = join_list(groups)
                     if group not in groups_map:
                         groups_dict[str(group_index)] = group
                         groups_map[group] = str(group_index)
@@ -145,7 +146,7 @@ class Dynasty(ProxySource):
                     chapter_title = tagging["title"]
                     upload_date = self.parse_date(tagging["released_on"])
                     groups = [tag["name"] for tag in tagging["tags"] if tag["type"] == "Scanlator"]
-                    group = ", ".join(groups)
+                    group = join_list(groups)
                     
                     chapter_list.append(
                         [
@@ -202,7 +203,7 @@ class Dynasty(ProxySource):
                 upload_date = self.parse_date(data["released_on"])
                 
                 groups = [tag["name"] for tag in data["tags"] if tag["type"] == "Scanlator"]
-                group = ", ".join(groups)
+                group = join_list(groups)
                 groups_dict = {"1": group}
                 
                 chapter_list = [[
@@ -282,7 +283,7 @@ class Dynasty(ProxySource):
                 alt_titles_str=None,
                 slug=data["slug"],
                 cover_vol_url=data["cover"],
-                metadata=[],
+                metadata=[["Author", data["author"]]],
                 synopsis=data["description"],
                 author=data["author"],
                 chapter_list=data["chapter_list"],

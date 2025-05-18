@@ -8,7 +8,7 @@ from django.urls import re_path
 
 from ..source import ProxySource
 from ..source.data import ChapterAPI, SeriesAPI, SeriesPage
-from ..source.helpers import api_cache, get_wrapper
+from ..source.helpers import api_cache, get_wrapper, join_list
 
 SUPPORTED_LANG = "en"
 API_URL = "https://api.comick.fun"
@@ -70,7 +70,8 @@ class ComicK(ProxySource):
                 if title["lang"] == SUPPORTED_LANG
             ]
             description = series_data["comic"]["desc"]
-            author = series_data["authors"][0]["name"]
+            author = join_list(author["name"] for author in series_data["authors"])
+            artist = join_list(artist["name"] for artist in series_data["artists"])
             cover = series_data["comic"]["cover_url"]
             hid = series_data["comic"]["hid"]
 
@@ -101,7 +102,7 @@ class ComicK(ProxySource):
                         oneshots += 1
 
                     chapter_group = (
-                        ", ".join(chapter["group_name"])
+                        join_list(chapter["group_name"])
                         if chapter["group_name"] is not None
                         else "Unknown"
                     )
@@ -174,7 +175,7 @@ class ComicK(ProxySource):
                 "alt_titles": alt_titles,
                 "metadata": [],
                 "author": author,
-                "artist": author,
+                "artist": artist,
                 "groups": groups_dict,
                 "cover": cover,
                 "chapter_dict": chapter_dict,
@@ -223,7 +224,7 @@ class ComicK(ProxySource):
                 alt_titles_str=None,
                 slug=data["slug"],
                 cover_vol_url=data["cover"],
-                metadata=[],
+                metadata=[["Author", data["author"]], ["Artist", data["artist"]]],
                 synopsis=data["description"],
                 author=data["author"],
                 chapter_list=data["chapter_list"],

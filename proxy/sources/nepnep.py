@@ -6,7 +6,7 @@ from django.urls import re_path
 
 from ..source import ProxySource
 from ..source.data import ChapterAPI, SeriesAPI, SeriesPage
-from ..source.helpers import api_cache, get_wrapper
+from ..source.helpers import api_cache, get_wrapper, join_list
 
 
 class NepNep(ProxySource):
@@ -82,7 +82,7 @@ class NepNep(ProxySource):
             description_element = series_resp_soup.select_one(
                 "li:has(strong:-soup-contains(Description)) > p")
             if author_elements:
-                author = ", ".join([link.get_text(strip=True)
+                author = join_list([link.get_text(strip=True)
                                    for link in author_elements])
             if description_element:
                 description = description_element.get_text(strip=True)
@@ -203,9 +203,9 @@ class NepNep(ProxySource):
                 alt_titles_str=None,
                 slug=data["slug"],
                 cover_vol_url=data["cover"],
-                metadata=[],
+                metadata=[["Author", data["author"]]],
                 synopsis=data["description"],
-                author=data["artist"],
+                author=data["author"],
                 chapter_list=data["chapter_list"],
                 original_url=original_url,
             )

@@ -463,6 +463,10 @@ article h2 {
 	align-items: center;
 }
 
+.series-content article aside > .table {
+	margin-bottom: 0.5em;
+}
+
 .series-content article content {
 	min-width: 7em;
 	overflow: hidden;

@@ -1,5 +1,6 @@
 import abc
 import json
+import traceback
 from typing import List
 
 import uwuify
@@ -72,6 +73,8 @@ class ProxySource(metaclass=abc.ABCMeta):
         )
 
     def _processing_error(self, request, exception):
+        traceback.print_exception(exception)
+        
         if isinstance(exception, ProxyException):
             error_msg = exception.message
         else:
