@@ -25,15 +25,15 @@ class ProxySource(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def series_api_handler(self, meta_id: str) -> SeriesAPI:
+    def series_api_handler(self, meta_id: str) -> SeriesAPI | None:
         raise NotImplementedError
 
     @abc.abstractmethod
-    def chapter_api_handler(self, meta_id: str) -> ChapterAPI:
+    def chapter_api_handler(self, meta_id: str) -> ChapterAPI | None:
         raise NotImplementedError
 
     @abc.abstractmethod
-    def series_page_handler(self, meta_id: str) -> SeriesPage:
+    def series_page_handler(self, meta_id: str) -> SeriesPage | None:
         raise NotImplementedError
 
     def uncache_duration(self) -> int:

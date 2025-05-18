@@ -1,5 +1,3 @@
-import random as r
-
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.cache import cache
@@ -8,9 +6,7 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import decorator_from_middleware
 from django.views.decorators.cache import cache_control
 
-from homepage.middleware import ForwardParametersMiddleware
-
-from .middleware import OnlineNowMiddleware
+from homepage.middleware import OnlineNowMiddleware
 
 
 @staff_member_required
