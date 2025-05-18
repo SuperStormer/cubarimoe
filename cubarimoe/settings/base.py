@@ -31,9 +31,7 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
-    "reader.apps.ReaderConfig",
     "homepage.apps.HomepageConfig",
-    "misc.apps.MiscConfig",
     "proxy.apps.ProxyConfig",
     "django.contrib.admin",
     "django.contrib.auth",

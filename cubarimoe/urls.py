@@ -20,26 +20,20 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
-from django.conf import settings
 
 from homepage.sitemaps import (
-    PagesListViewSitemap,
-    PageViewSitemap,
     StaticViewSitemap,
 )
 from proxy import sources
 
 sitemaps = {
     "static": StaticViewSitemap,
-    "pageslist": PagesListViewSitemap,
-    "page": PageViewSitemap,
 }
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("homepage.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
-    path("pages/", include("misc.urls")),
     path(
         "",
         include(

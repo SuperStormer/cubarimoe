@@ -3,14 +3,14 @@ import random as r
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.cache import cache
+from django.http.response import HttpResponsePermanentRedirect
 from django.shortcuts import redirect, render
 from django.utils.decorators import decorator_from_middleware
 from django.views.decorators.cache import cache_control
-from django.http.response import HttpResponsePermanentRedirect
 
 from homepage.middleware import ForwardParametersMiddleware
-from reader.middleware import OnlineNowMiddleware
-from reader.views import series_page_data
+
+from .middleware import OnlineNowMiddleware
 
 
 @staff_member_required
