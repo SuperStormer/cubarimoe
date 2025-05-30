@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+env/
+guyaa/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# vscode
+.vscode
+
+#db
+db.sqlite3
+
+#django migrations
+migrations/
+
+#django collectstatic location
+static/
+
+#media root
+media/*
+
+# misc
+.ruff.toml
+.gitignore
+LICENSE
+README.md
+.git

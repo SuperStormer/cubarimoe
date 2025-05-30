@@ -125,8 +125,6 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -137,9 +135,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_global"),
 ]
 
-STATIC_VERSION = "?v=" + subprocess.check_output(
-    ["git", "-C", str(BASE_DIR), "rev-parse", "--short", "HEAD"], text=True
-)
+try:
+    STATIC_VERSION = "?v=" + subprocess.check_output(
+        ["git", "-C", str(BASE_DIR), "rev-parse", "--short", "HEAD"], text=True
+    )
+except (subprocess.CalledProcessError, FileNotFoundError):
+    STATIC_VERSION = "?v=" + os.urandom(4).hex()
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

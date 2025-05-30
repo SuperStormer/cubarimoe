@@ -1,6 +1,10 @@
-FROM python:3
+FROM ghcr.io/astral-sh/uv:python3.13-alpine
 
-# Creates the directory for us
+RUN apk update && apk upgrade --no-cache && apk add libpq-dev gcc libc-dev
+
 WORKDIR /cubarimoe
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+COPY uv.lock pyproject.toml ./
+RUN uv sync --locked && apk del gcc
+COPY . ./
+
+CMD ["uv", "run", "./docker/init.py"]
