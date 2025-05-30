@@ -4,14 +4,14 @@ ALLOWED_HOSTS = ["web", "localhost"]
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
         "LOCATION": "memcached:11211",
     }
 }
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "kacubarimoe",
         "USER": "POSTGRES_USER",
         "PASSWORD": "POSTGRES_PASSWORD",

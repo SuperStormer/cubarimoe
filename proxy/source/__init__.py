@@ -8,8 +8,9 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import path, re_path
-from django.views.decorators.cache import cache_control
+from django.utils.decorators import method_decorator
 from django.utils.html import conditional_escape
+from django.views.decorators.cache import cache_control
 
 from .data import *
 from .helpers import *
@@ -96,7 +97,7 @@ class ProxySource(metaclass=abc.ABCMeta):
             f"{settings.EXTERNAL_PROXY_URL}/v1/image/{encode(url)}?source=cubari_host"
         )
 
-    @cache_control(public=True, max_age=60, s_maxage=60)
+    @method_decorator(cache_control(public=True, max_age=60, s_maxage=60))
     def reader_view(self, request, meta_id, chapter, page=None):
         if page:
             try:
