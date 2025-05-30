@@ -1,4 +1,10 @@
+import os
+
 from cubarimoe.settings.base import *
+
+SESSION_COOKIE_SECURE = True
+
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 ALLOWED_HOSTS = ["web", "localhost"]
 
@@ -13,8 +19,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "kacubarimoe",
-        "USER": "POSTGRES_USER",
-        "PASSWORD": "POSTGRES_PASSWORD",
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
         "HOST": "postgres",
         "PORT": "",
     }

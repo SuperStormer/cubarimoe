@@ -2,19 +2,17 @@ import os
 
 from .base import *
 
-
 CANONICAL_ROOT_DOMAIN = "cubari.moe"
-SECURE_HSTS_SECONDS = 60
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = "ALLOW"
+
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 DEBUG = False
 
@@ -64,14 +62,14 @@ LOGGING = {
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
         "LOCATION": "127.0.0.1:11211",
     }
 }
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DB_NAME"),
         "USER": os.environ.get("DB_USER"),
         "PASSWORD": os.environ.get("DB_PASS"),
@@ -79,7 +77,3 @@ DATABASES = {
         "PORT": "",
     }
 }
-
-OCR_SCRIPT_PATH = os.path.join(PARENT_DIR, "ocr_tool.sh")
-
-METRICS_ENDPOINT = "https://obs.f-ck.me/ingest"
