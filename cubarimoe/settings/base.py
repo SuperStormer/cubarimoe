@@ -83,7 +83,6 @@ TEMPLATES = [
                 "cubarimoe.context_processors.branding",
                 "cubarimoe.context_processors.home_branding",
                 "cubarimoe.context_processors.urls",
-                "cubarimoe.context_processors.metrics",
             ],
         },
     },
@@ -147,8 +146,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 IMGUR_CLIENT_ID = os.environ.get("IMGUR_CLIENT_ID", "")
-MAIL_DISCORD_WEBHOOK_ID = int(os.environ.get("MAIL_DISCORD_WEBHOOK_ID", 1))
-MAIL_DISCORD_WEBHOOK_TOKEN = os.environ.get("MAIL_DISCORD_WEBHOOK_TOKEN", "")
 
 BRANDING_NAME = "Cubari"
 BRANDING_DESCRIPTION = "The versatile manga-oriented image reader."
@@ -162,5 +159,3 @@ EXTERNAL_PROXY_URL = "https://services.f-ck.me"
 SECONDARY_PROXY_URL = os.environ.get("SECONDARY_PROXY_URL", EXTERNAL_PROXY_URL)
 
 PROXY_BASE_PATH = "read"
-
-METRICS_ENDPOINT = ""

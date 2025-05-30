@@ -29,11 +29,6 @@ def admin_home(request):
 @cache_control(public=True, max_age=300, s_maxage=300)
 @decorator_from_middleware(OnlineNowMiddleware)
 def home(request):
-    home_screen_series = {
-        "Kaguya-Wants-To-Be-Confessed-To": "",
-        "We-Want-To-Talk-About-Kaguya": "",
-        "Kaguya-Wants-To-Be-Confessed-To-Official-Doujin": "",
-    }
     return render(
         request,
         "homepage/home.html",
