@@ -10,7 +10,7 @@ services:
       - type: bind
         source: ./nginx/web.conf
         target: /etc/nginx/conf.d/default.conf
-      - ../static_global:/static 
+      - ../static:/static 
     ports:
       - 80:80 # You might have to change this to just 80 if it doesn't bind properly
     networks:

@@ -7,4 +7,4 @@ COPY uv.lock pyproject.toml ./
 RUN uv sync --locked && apk del gcc
 COPY . ./
 
-CMD ["uv", "run", "./docker/init.py"]
+CMD ["uv", "run", "./docker/init.sh"]
