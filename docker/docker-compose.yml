@@ -7,6 +7,8 @@ services:
       # (Mostly) everything else is based off the
       # compose file's dir
       dockerfile: ./docker/Dockerfile
+    container_name: cubari-web
+    hostname: web
     environment:
       - PYTHONUNBUFFERED=1
       - DJANGO_SETTINGS_MODULE=docker.settings
@@ -21,6 +23,8 @@ services:
       - cubarimoe-intercontinental-highway
   memcached:
     image: memcached:1.6-alpine
+    container_name: cubari-memcached
+    hostname: memcached
     entrypoint:
       - memcached
       - -m 512
@@ -28,6 +32,8 @@ services:
       - cubarimoe-intercontinental-highway
   postgres:
     image: postgres:17-alpine
+    container_name: cubari-postgres
+    hostname: postgres
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
@@ -39,7 +45,7 @@ services:
       - cubarimoe-intercontinental-highway
   nginx:
     image: nginx:alpine-slim
-    hostname: cubari-nginx
+    container_name: cubari-nginx
     depends_on:
       - web
     volumes:
