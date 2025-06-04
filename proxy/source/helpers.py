@@ -1,9 +1,10 @@
 import base64
+from urllib.parse import urlparse
 
 import requests
-from django.core.cache import cache
 from django.conf import settings
-from urllib.parse import urlparse
+from django.core.cache import cache
+
 from .data import ProxyException
 
 ENCODE_STR_SLASH = "%FF-"
@@ -74,32 +75,41 @@ def get_wrapper(url, *, headers={}, use_proxy=False, secondary=False, **kwargs):
         if use_proxy
         else url
     )
-    return sensored_request_handler(
-        lambda: requests.get(
-            request_url,
-            headers={**GLOBAL_HEADERS, **headers},
-            timeout=REQUEST_TIMEOUT,
-            **kwargs,
-        ),
-        url,
-    )
+    try:
+        return sensored_request_handler(
+            lambda: requests.get(
+                request_url,
+                headers={**GLOBAL_HEADERS, **headers},
+                timeout=REQUEST_TIMEOUT,
+                **kwargs,
+            ),
+            url,
+        )
+    except ProxyException:
+        if not secondary:
+            return get_wrapper(url, headers=headers, use_proxy=use_proxy,secondary=True, **kwargs)
 
 
-def post_wrapper(url, headers={}, use_proxy=False, **kwargs):
+def post_wrapper(url, *, headers={}, use_proxy=False, secondary=False, **kwargs):
+    base = settings.EXTERNAL_PROXY_URL if not secondary else settings.SECONDARY_PROXY_URL
     request_url = (
-        f"{settings.EXTERNAL_PROXY_URL}/v1/cors/{encode(url)}?source=cubari_host"
+        f"{base}/v1/cors/{encode(url)}?source=cubari_host"
         if use_proxy
         else url
     )
-    return sensored_request_handler(
-        lambda: requests.post(
-            request_url,
-            headers={**GLOBAL_HEADERS, **headers},
-            timeout=REQUEST_TIMEOUT,
-            **kwargs,
-        ),
-        url,
-    )
+    try:
+        return sensored_request_handler(
+            lambda: requests.post(
+                request_url,
+                headers={**GLOBAL_HEADERS, **headers},
+                timeout=REQUEST_TIMEOUT,
+                **kwargs,
+            ),
+            url,
+        )
+    except ProxyException:
+        if not secondary:
+            return get_wrapper(url, headers=headers, use_proxy=use_proxy, secondary=True, **kwargs)
 
 
 def api_cache(*, prefix, time):
