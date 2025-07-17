@@ -175,9 +175,9 @@ class NHentai(ProxySource):
                 alt_titles_str=None,
                 slug=data["slug"],
                 cover_vol_url=data["cover"],
-                metadata=[["Author", data["artist"]], ["Artist", data["artist"]]],
+                metadata=[["Artist", data["artist"]]],
                 synopsis=f"{data['description']}\n\nTags: {', '.join(data['tags'])}",
-                author=data["author"],
+                author=data["artist"],
                 chapter_list=chapter_list,
                 original_url=f"https://nhentai.net/g/{meta_id}/",
             )
