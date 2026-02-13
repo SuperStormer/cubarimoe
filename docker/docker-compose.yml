@@ -21,6 +21,7 @@ services:
       - static:/cubarimoe/static
     networks:
       - cubarimoe-intercontinental-highway
+    restart: on-failure:3
   memcached:
     image: memcached:1.6-alpine
     container_name: cubari-memcached
@@ -30,6 +31,7 @@ services:
       - -m 512
     networks:
       - cubarimoe-intercontinental-highway
+    restart: on-failure:3
   postgres:
     image: postgres:17-alpine
     container_name: cubari-postgres
@@ -43,6 +45,7 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     networks:
       - cubarimoe-intercontinental-highway
+    restart: on-failure:3
   nginx:
     image: nginx:alpine-slim
     container_name: cubari-nginx
@@ -52,11 +55,12 @@ services:
       - type: bind
         source: ./web.conf
         target: /etc/nginx/conf.d/default.conf
-      - static:/static 
+      - static:/static
     ports:
       - 80:80 # You might have to change this to just 80 if it doesn't bind properly
     networks:
       - cubarimoe-intercontinental-highway
+    restart: on-failure:3
 volumes:
   pgdata:
   static:
